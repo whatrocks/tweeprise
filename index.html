@@ -19,7 +19,8 @@
     
     <section>
   
-      <button>Show New Tweets</button>
+      <button class="refresh-tweets">Show New Tweets</button>
+      
       <div class="feed"></div>
 
     </section>
@@ -36,15 +37,30 @@
       $(document).ready(function(){
         var $feed = $('.feed');
         $feed.html('');
-
         var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message + ' [' +tweet.created_at +']');
-          $tweet.appendTo($feed);
-          index -= 1;
-        }
+        var shownTweets = 0;
+
+        var showTweets = function() {
+          
+          var count = shownTweets;
+
+          for (var i = index; i > count; i--) {
+            var tweet = streams.home[i];
+            var $tweet = $('<div></div><br >');
+            var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
+            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' [' + date +']');
+            $tweet.appendTo($feed);
+            shownTweets += 1;
+          }
+
+        };
+
+        showTweets();
+
+        $('.refresh-tweets').on('click', function() {
+          index = streams.home.length - 1;
+          showTweets();
+        });
 
       });
     </script>
