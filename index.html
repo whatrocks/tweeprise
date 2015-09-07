@@ -37,6 +37,7 @@
       $(document).ready(function(){
         var $feed = $('.feed');
         $feed.html('');
+
         var index = streams.home.length - 1;
         var shownTweets = 0;
 
@@ -44,12 +45,12 @@
           
           var count = shownTweets;
 
-          for (var i = index; i > count; i--) {
+          for (var i = count; i < index; i++) {
             var tweet = streams.home[i];
             var $tweet = $('<div></div><br >');
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' [' + date +']');
-            $tweet.appendTo($feed);
+            $tweet.text(i + ': @' + tweet.user + ': ' + tweet.message + ' [' + date +']');
+            $tweet.prependTo($feed);
             shownTweets += 1;
           }
 
