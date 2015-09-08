@@ -11,15 +11,13 @@
 
     <header>
 
-        <h1>Tweeprise</h1>
+        <h1 class="logo">Tweeprise</h1>
         <!--And now just for fun-->
         <marquee>It's gonna be cold cold cold cold cold.</marquee>
 
     </header>
     
     <section>
-  
-      <button class="refresh-tweets">Show New Tweets</button>
       
       <div class="feed"></div>
 
@@ -38,19 +36,9 @@
         var $feed = $('.feed');
         $feed.html('');
 
-        var shownTweets = 0;
-
-        var showTweets = function(startCount, userName) {
+        var showTweets = function(userName) {
           
           var index;
-          
-          var count;
-
-          if (!startCount) {
-            count = 0;
-          } else {
-            count = startCount;
-          }
 
           var tweetArray;
 
@@ -62,7 +50,7 @@
             tweetArray = streams.users[userName];
           }
 
-          for (var i = count; i < index; i++) {
+          for (var i = 0; i < index; i++) {
 
             var tweet = tweetArray[i];
             
@@ -73,23 +61,22 @@
             $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
 
             $tweet.prependTo($feed);
-            shownTweets += 1;
-
            }
         };
 
         // Initial page load
         showTweets();
 
-        $('.refresh-tweets').on('click', function() {
-          showTweets(shownTweets);
-        });
-
         $('.feed').on('click', '.tweetUserName', function() {
           $feed.html('');
           var clickedUser = $(this).data('username');
           console.log(clickedUser);
-          showTweets(0, clickedUser);
+          showTweets(clickedUser);
+        });
+
+        $('.logo').on('click', function() {
+          $feed.html('');
+          showTweets();
         });
 
 
