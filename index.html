@@ -42,7 +42,7 @@
 
         var shownTweets = 0;
 
-        var showTweets = function(startCount) {
+        var showTweets = function(startCount, userName) {
           var index = streams.home.length - 1;
           var count;
 
@@ -52,9 +52,17 @@
             count = startCount;
           }
 
+          var tweetArray;
+
+          if (!userName) {
+            tweetArray = streams.home;
+          } else {
+            tweetArray = streams.users[userName];
+          }
+
           for (var i = count; i < index; i++) {
 
-            var tweet = streams.home[i];
+            var tweet = tweetArray[i];
             
             var $tweet = $('<div/>', {'class': 'tweetContainer'});
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
@@ -64,7 +72,7 @@
 
             $tweet.prependTo($feed);
             shownTweets += 1;
-            
+
            }
         };
 
@@ -75,28 +83,9 @@
           showTweets(shownTweets);
         });
 
-
-        var showUserTweets = function(userName) {
-
-          console.log(userName);
-
-          var index = streams.users[userName].length - 1;
-          for (var i = 0; i < index; i++) {
-
-            var tweet = streams.users[userName][i];
-            var $tweet = $('<div/>', {'class': 'tweetContainer'});
-            var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
-            $tweet.append($('<div/>', {'class': 'tweetUserName', text: "@"+tweet.user }));
-            $tweet.append($('<div/>', {'class': 'tweetDate', text: date}));
-            $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
-            
-            $tweet.prependTo($feed);
-          }
-        };
-
         $('.mracus').on('click', function() {
           $feed.html('');
-          showUserTweets('mracus');
+          showTweets(0, 'mracus');
         });
 
 
