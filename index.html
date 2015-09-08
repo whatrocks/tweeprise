@@ -20,8 +20,6 @@
     <section>
   
       <button class="refresh-tweets">Show New Tweets</button>
-
-      <button class="mracus">@mracus</button>
       
       <div class="feed"></div>
 
@@ -43,7 +41,9 @@
         var shownTweets = 0;
 
         var showTweets = function(startCount, userName) {
-          var index = streams.home.length - 1;
+          
+          var index;
+          
           var count;
 
           if (!startCount) {
@@ -55,8 +55,10 @@
           var tweetArray;
 
           if (!userName) {
+            index = streams.home.length - 1;
             tweetArray = streams.home;
           } else {
+            index = streams.users[userName].length - 1;
             tweetArray = streams.users[userName];
           }
 
@@ -66,7 +68,7 @@
             
             var $tweet = $('<div/>', {'class': 'tweetContainer'});
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
-            $tweet.append($('<div/>', {'class': 'tweetUserName', text: "@"+tweet.user }));
+            $tweet.append($('<div/>', {'class': 'tweetUserName', 'data-username': tweet.user, text: "@"+tweet.user }));
             $tweet.append($('<div/>', {'class': 'tweetDate', text: date}));
             $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
 
@@ -83,9 +85,11 @@
           showTweets(shownTweets);
         });
 
-        $('.mracus').on('click', function() {
+        $('.feed').on('click', '.tweetUserName', function() {
           $feed.html('');
-          showTweets(0, 'mracus');
+          var clickedUser = $(this).data('username');
+          console.log(clickedUser);
+          showTweets(0, clickedUser);
         });
 
 
