@@ -21,7 +21,19 @@
         
           <button class="btn update-tweets">Update</button>  
 
-        </div>      
+        </div>
+
+        <div class="new-tweep-bar">
+          <form class="new-tweep-form" action="">
+            <fieldset class="tweep">
+              <label>
+                Won't you step into the freezer?
+                <input type="text" class="tweep-message" name="message" placeholder="It's gonna be cold cold cold cold cold" required>
+              </label>
+              <input class="btn btn-alt tweep-submit" type="submit" name="submit" value="Tweep">
+            </fieldset>
+          </form>
+        </div>
 
     </header>
     
@@ -41,7 +53,14 @@
     <script>
 
       $(document).ready(function(){
+
+        window.visitor = "whatrocks";
         
+        // Write a tweep functionality
+        $('.new-tweep-form').submit(function(e) {
+          e.preventDefault();
+        });
+
         // Timeago functionality
         $.timeago.settings.allowFuture = true;
 
@@ -58,10 +77,11 @@
           var tweetArray;
 
           if (!userName) {
-            index = streams.home.length - 1;
+            index = streams.home.length;
             tweetArray = streams.home;
           } else {
-            index = streams.users[userName].length - 1;
+            index = streams.users[userName].length;
+            console.log(index);
             tweetArray = streams.users[userName];
           }
 
@@ -78,7 +98,6 @@
             var tweet = tweetArray[i];
 
             var $tweet = $('<div/>', {'class': 'tweetContainer'});
-            //var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
 
             var date = tweet.created_at.toISOString();
 
@@ -104,7 +123,7 @@
           $feed.html('');
           var clickedUser = $(this).data('username');
           $('.btn').addClass('btn-hide');
-          console.log($('.btn'));
+          $('.new-tweep-bar').addClass('hide-new-tweep-bar');
           showTweets(clickedUser);
         });
 
@@ -112,13 +131,20 @@
           $feed.html('');
           displayedTweets = 0;
           $('.btn').removeClass('btn-hide');
+          $('.new-tweep-bar').removeClass('hide-new-tweep-bar');
           showTweets();
         });
 
         $('.update-tweets').on('click', function() {
-          showTweets(undefined,displayedTweets);
+          showTweets(undefined, displayedTweets);
         });
 
+        $('.tweep-submit').on('click', function() {
+          var message = $(this).parent().find('.tweep-message').val();
+          console.log(message);
+          writeTweet(message);
+          showTweets(undefined, displayedTweets);
+        });
 
       });
     </script>

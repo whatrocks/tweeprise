@@ -139,36 +139,39 @@ a:hover {
   width: 640px;
 }
 
+
+
 /*
   ==============================================
-  Buttons
+  Tweet form
   ==============================================
 */
 
-.btn {
-  border-radius: 5px;
-  border:none;
+form {
+  text-align: center;
+}
+
+.tweep label {
   color: #fff;
-  background-color: #4CaF50;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 400;
   letter-spacing: .5px;
-  margin: 0;
-  text-transform: uppercase;
-  padding: 10px 30px;
-  margin: 0 auto;
+  font-size: 22px;
 }
 
-.btn:hover {
-  background-color: #1976d2;
+.tweep input {
+  border: none;
+  border-radius: 5px;
+  display: block;
+  font-size: 14px;
+  width: 75%;
+  height: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 15px auto;
 }
 
-.btn-hide {
+.hide-new-tweep-bar {
   display: none;
 }
-
 
 /*
   ==============================================
@@ -197,3 +200,38 @@ a:hover {
   padding-top: 7px;
   font-size: 20px;
 }
+/*
+  ==============================================
+  Buttons
+  ==============================================
+*/
+
+.btn {
+  border-radius: 5px;
+  border:none;
+  color: #fff;
+  background-color: #4CaF50;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin: 0;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  margin: 0 auto;
+}
+
+.btn-alt {
+  color: #212121;
+  background-color: #BBDEFB;
+}
+
+.btn:hover {
+  background-color: #1976d2;
+}
+
+.btn-hide {
+  display: none;
+}
+
