@@ -53,12 +53,18 @@
           }
 
           for (var i = count; i < index; i++) {
+
             var tweet = streams.home[i];
-            var $tweet = $('<div></div>');
+            
+            var $tweet = $('<div/>', {'class': 'tweetContainer'});
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
-            $tweet.html(i + ': <a href="">@'+tweet.user+'</a>: ' + tweet.message + ' [' + date +']');
+            $tweet.append($('<div/>', {'class': 'tweetUserName', text: "@"+tweet.user }));
+            $tweet.append($('<div/>', {'class': 'tweetDate', text: date}));
+            $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
+
             $tweet.prependTo($feed);
             shownTweets += 1;
+            
            }
         };
 
@@ -79,9 +85,7 @@
 
             var tweet = streams.users[userName][i];
             var $tweet = $('<div/>', {'class': 'tweetContainer'});
-
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
-
             $tweet.append($('<div/>', {'class': 'tweetUserName', text: "@"+tweet.user }));
             $tweet.append($('<div/>', {'class': 'tweetDate', text: date}));
             $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
