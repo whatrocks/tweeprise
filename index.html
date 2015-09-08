@@ -16,6 +16,12 @@
 
         <h1 class="logo">Tweeprise</h1>
 
+        <div class="btn-bar">
+        
+          <button class="btn update-tweets">Update</button>  
+
+        </div>      
+
     </header>
     
     <section class="container">
@@ -37,7 +43,9 @@
         var $feed = $('.feed');
         $feed.html('');
 
-        var showTweets = function(userName) {
+        var displayedTweets = 0;
+
+        var showTweets = function(userName, shownTweets) {
           
           var index;
 
@@ -51,7 +59,15 @@
             tweetArray = streams.users[userName];
           }
 
-          for (var i = 0; i < index; i++) {
+          var startTweet;
+
+          if (!shownTweets) {
+            startTweet = 0;
+          } else {
+            startTweet = shownTweet;
+          }
+
+          for (var i = startTweet; i < index; i++) {
 
             var tweet = tweetArray[i];
 
@@ -62,6 +78,11 @@
             $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
 
             $tweet.prependTo($feed);
+
+            if (shownTweets) {
+              displayedTweets++;
+            }
+
            }
         };
 
@@ -71,13 +92,20 @@
         $('.feed').on('click', '.tweetUserName', function() {
           $feed.html('');
           var clickedUser = $(this).data('username');
-          console.log(clickedUser);
+          $('.btn').addClass('btn-hide');
+          console.log($('.btn'));
           showTweets(clickedUser);
         });
 
         $('.logo').on('click', function() {
           $feed.html('');
+          displayedTweets = 0;
+          $('.btn').removeClass('btn-hide');
           showTweets();
+        });
+
+        $('.update-tweets').on('click', function() {
+          showTweets(undefined,displayedTweets);
         });
 
 

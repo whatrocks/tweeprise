@@ -73,14 +73,18 @@ h1 {
   font-size: 46px;
   font-weight: 100;
   line-height: 54px;
+  cursor: pointer;
+}
+
+header {
+  background-color: #2196F3;
 }
 
 .logo {
   cursor: pointer;
-  background-color: #2196F3;
-  color: #fff;
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
+  color: #fff;
 }
 
 footer {
@@ -97,6 +101,10 @@ footer {
   padding: 12px;
 }
 
+.btn-bar {
+  text-align: center;
+  padding-bottom: 20px;
+}
 /*
   ==============================================
   Links
@@ -130,6 +138,37 @@ a:hover {
   margin: 0 auto;
   width: 640px;
 }
+
+/*
+  ==============================================
+  Buttons
+  ==============================================
+*/
+
+.btn {
+  border-radius: 5px;
+  border:none;
+  color: #fff;
+  background-color: #4CaF50;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin: 0;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background-color: #1976d2;
+}
+
+.btn-hide {
+  display: none;
+}
+
 
 /*
   ==============================================
