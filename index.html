@@ -20,6 +20,8 @@
     <section>
   
       <button class="refresh-tweets">Show New Tweets</button>
+
+      <button class="mracus">@mracus</button>
       
       <div class="feed"></div>
 
@@ -38,30 +40,61 @@
         var $feed = $('.feed');
         $feed.html('');
 
-        var index = streams.home.length - 1;
         var shownTweets = 0;
 
-        var showTweets = function() {
-          
-          var count = shownTweets;
+        var showTweets = function(startCount) {
+          var index = streams.home.length - 1;
+          var count;
+
+          if (!startCount) {
+            count = 0;
+          } else {
+            count = startCount;
+          }
 
           for (var i = count; i < index; i++) {
             var tweet = streams.home[i];
-            var $tweet = $('<div></div><br >');
+            var $tweet = $('<div></div>');
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
-            $tweet.text(i + ': @' + tweet.user + ': ' + tweet.message + ' [' + date +']');
+            $tweet.html(i + ': <a href="">@'+tweet.user+'</a>: ' + tweet.message + ' [' + date +']');
             $tweet.prependTo($feed);
             shownTweets += 1;
-          }
-
+           }
         };
 
+        // Initial page load
         showTweets();
 
         $('.refresh-tweets').on('click', function() {
-          index = streams.home.length - 1;
-          showTweets();
+          showTweets(shownTweets);
         });
+
+
+        var showUserTweets = function(userName) {
+
+          console.log(userName);
+
+          var index = streams.users[userName].length - 1;
+          for (var i = 0; i < index; i++) {
+
+            var tweet = streams.users[userName][i];
+            var $tweet = $('<div/>', {'class': 'tweetContainer'});
+
+            var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
+
+            $tweet.append($('<div/>', {'class': 'tweetUserName', text: "@"+tweet.user }));
+            $tweet.append($('<div/>', {'class': 'tweetDate', text: date}));
+            $tweet.append($('<div/>', {'class': 'tweetMessage', text: tweet.message}));
+            
+            $tweet.prependTo($feed);
+          }
+        };
+
+        $('.mracus').on('click', function() {
+          $feed.html('');
+          showUserTweets('mracus');
+        });
+
 
       });
     </script>
