@@ -68,3 +68,14 @@ body {
 h1 {
   text-align: center;
 }
+
+/*
+  ==============================================
+  Tweets
+  ==============================================
+*/
+
+.tweetContainer {
+  margin-bottom: 10px;
+  border: 1px solid blue;
+}
