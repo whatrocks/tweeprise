@@ -10,21 +10,21 @@
   </head>
   <body>
 
-    <header>
+    <header class="container">
 
-        <h1 class="logo">tweeprise</h1>
-        <!--And now just for fun-->
-        <marquee>It's gonna be cold cold cold cold cold.</marquee>
+        <div class="top-bar"></div>
+
+        <h1 class="logo">Tweeprise</h1>
 
     </header>
     
-    <section>
-      
-      <div class="feed"></div>
+    <section class="container">
+        
+      <section class="feed"></section>
 
     </section>
     
-    <footer>
+    <footer class="container">
 
       <p> Created by <a href="http://www.twitter.com/whatrocks">@whatrocks</a> for <a href="http://www.twitter.com/hackreactor">@hackreactor</a></p>
 
@@ -54,7 +54,7 @@
           for (var i = 0; i < index; i++) {
 
             var tweet = tweetArray[i];
-            
+
             var $tweet = $('<div/>', {'class': 'tweetContainer'});
             var date = tweet.created_at.getHours() +":"+tweet.created_at.getMinutes() +":"+tweet.created_at.getSeconds();
             $tweet.append($('<div/>', {'class': 'tweetUserName', 'data-username': tweet.user, text: "@"+tweet.user }));
